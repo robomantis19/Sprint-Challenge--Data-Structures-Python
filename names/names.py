@@ -1,5 +1,5 @@
 import time
-
+from queue import Queue
 start_time = time.time()
 
 f = open('names_1.txt', 'r')
@@ -13,11 +13,63 @@ f.close()
 duplicates = []  # Return the list of duplicates in this data structure
 
 # Replace the nested for loops below with your improvements
-for name_1 in names_1:
-    for name_2 in names_2:
-        if name_1 == name_2:
-            duplicates.append(name_1)
+# for name_1 in names_1:
+#     for name_2 in names_2:
+#         if name_1 == name_2:
+#             duplicates.append(name_1)
 
+#the implementations above is O(n^2)
+class BSTNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+        # self.dup = []
+    def insert(self, value):
+   
+        # print('value: ', self.value)
+       
+            
+        if value < self.value:
+            if self.left is None:  
+                Node = BSTNode(value)
+                self.left= Node 
+                            
+            else:
+                self.left.insert(value)         
+        else:    
+            if not self.right: 
+                Node = BSTNode(value)
+                self.right = Node
+            else:     
+                self.right.insert(value)
+    def dft_print(self, node):
+            qq = Queue()
+            qq.enqueue(node)
+            # arr= []
+            while qq.__len__() > 0:
+                
+                current = qq.dequeue()
+                if current.left:
+                    qq.enqueue(current.left)
+                if current.right:
+                    qq.enqueue(current.right)
+                print(current.value)
+                return current.value #comment out this line to see printed list of all names in order non duplicates.
+                
+                # return current.value
+                # arr.append(current.value)
+            return arr
+bst = BSTNode(names_1[50])
+for i in names_1: 
+    bst.insert(i)
+    
+for i in names_2:
+    bst.insert(i)
+bst.dft_print(bst)
+duplicates.append(bst.dft_print(bst))
+
+    
 end_time = time.time()
 print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
 print (f"runtime: {end_time - start_time} seconds")
